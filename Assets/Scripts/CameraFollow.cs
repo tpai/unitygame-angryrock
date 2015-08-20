@@ -51,7 +51,7 @@ public class CameraFollow : MonoBehaviour {
 					transform.position.y,
 					-10f
 			),
-				Time.deltaTime * 10f
+				Time.deltaTime * 5f
 			);
 		}
 	}

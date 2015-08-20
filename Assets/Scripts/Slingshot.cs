@@ -22,6 +22,8 @@ public class Slingshot : MonoBehaviour {
 
 	void HandleShot () {
 		shoot = true;
+		band1.SetPosition (1, band1.transform.position);
+		band2.SetPosition (1, band2.transform.position);
 		band1.enabled = false;
 		band2.enabled = false;
 	}
