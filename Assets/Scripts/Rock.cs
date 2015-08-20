@@ -4,10 +4,20 @@ using System.Collections;
 public class Rock : MonoBehaviour {
 
 	public delegate void Shooting();
-	public event Shooting Hold, Shot;
+	public event Shooting Hold, Shot, Reset;
 
-	bool hold = false;
 	public float shootForce = 300f;
+	bool hold = false;
+	Rigidbody2D rigid;
+
+	void OnEnable () {
+		rigid = GetComponent<Rigidbody2D> ();
+		rigid.gravityScale = 0;
+		rigid.angularVelocity = 0f;
+		rigid.velocity = Vector3.zero;
+
+		transform.position = GameObject.Find ("RockSpawner").transform.position;
+	}
 
 	void FixedUpdate () {
 
@@ -37,7 +47,27 @@ public class Rock : MonoBehaviour {
 		if (Shot != null)
 			Shot ();
 		Transform slingshot = GameObject.Find ("Slingshot").transform;
-		GetComponent<Rigidbody2D> ().AddForce ((slingshot.position - transform.position) * shootForce);
-		GetComponent<Rigidbody2D> ().gravityScale = 1;
+		rigid.AddForce ((slingshot.position - transform.position) * shootForce);
+		rigid.gravityScale = 1;
+	}
+
+	void OnCollisionEnter2D (Collision2D coll) {
+		if (coll.collider.tag == "Obstacle") {
+			InvokeRepeating ("CheckIfSlowdown", 2f, 1f);
+		}
+	}
+
+	void CheckIfSlowdown () {
+		if (Mathf.Abs(rigid.velocity.x) < 5f) {
+			this.enabled = false;
+			Invoke ("ResetRock", .5f);
+			CancelInvoke ("CheckIfSlowdown");
+		}
+	}
+
+	void ResetRock () {
+		if (Reset != null)
+			Reset ();
+		this.enabled = true;
 	}
 }

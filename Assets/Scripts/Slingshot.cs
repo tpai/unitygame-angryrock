@@ -11,6 +11,13 @@ public class Slingshot : MonoBehaviour {
 
 	void OnEnable () {
 		GameObject.Find ("Rock").GetComponent<Rock>().Shot += HandleShot;
+		GameObject.Find ("Rock").GetComponent<Rock>().Reset += HandleReset;
+	}
+
+	void HandleReset () {
+		shoot = false;
+		band1.enabled = true;
+		band2.enabled = true;
 	}
 
 	void HandleShot () {
