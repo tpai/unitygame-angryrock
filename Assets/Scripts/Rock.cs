@@ -4,15 +4,11 @@ using System.Collections;
 public class Rock : MonoBehaviour {
 
 	public delegate void Shooting();
-	public event Shooting Shot, test;
+	public event Shooting Hold, Shot;
 
 	bool hold = false;
 	public float shootForce = 300f;
 
-	void Start () {
-	
-	}
-	
 	void FixedUpdate () {
 
 		if (!hold)
@@ -27,6 +23,8 @@ public class Rock : MonoBehaviour {
 	}
 
 	void OnMouseDown () {
+		if (Hold != null)
+			Hold ();
 		hold = true;
 	}
 
