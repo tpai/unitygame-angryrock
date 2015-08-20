@@ -19,7 +19,11 @@ public class Rock : MonoBehaviour {
 			return;
 
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		transform.position = new Vector3 (mousePos.x, mousePos.y, 0f);
+		transform.position = new Vector3 (
+			Mathf.Clamp(mousePos.x, -8f, -5f),
+			Mathf.Clamp(mousePos.y, -2.8f, 2.8f),
+			0f
+		);
 	}
 
 	void OnMouseDown () {
