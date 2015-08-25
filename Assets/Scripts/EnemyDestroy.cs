@@ -5,6 +5,8 @@ public class EnemyDestroy : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+		int origin = PlayerPrefs.GetInt ("DestroyBirds");
+		PlayerPrefs.SetInt ("DestroyBirds", origin + 1);
 		Destroy (animator.gameObject);
 	}
 

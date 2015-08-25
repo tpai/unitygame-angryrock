@@ -97,6 +97,9 @@ public class Rock : MonoBehaviour {
 		if (numberOfRock == 0) {
 			GetComponent<SpriteRenderer> ().enabled = false;
 			GetComponent<CircleCollider2D> ().enabled = false;
+			// show result UI
+			GameObject.Find ("ResultCanvas").GetComponent<Canvas>().enabled = true;
+			GameObject.Find ("ResultCoin").GetComponent<ResultCoin> ().Show ();
 		}
 		else {
 			this.enabled = true;
