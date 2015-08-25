@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Slingshot : MonoBehaviour {
 
-	[SerializeField] LineRenderer band1, band2;
+	[SerializeField] LineRenderer band1;
+	[SerializeField] LineRenderer band2;
 	Vector3 bandPoint1, bandPoint2;
 	float radius;
 	bool shoot = false;

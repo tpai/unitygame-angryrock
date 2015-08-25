@@ -6,6 +6,7 @@ public class Rock : MonoBehaviour {
 	public delegate void Shooting();
 	public event Shooting Hold, Shot, Reset;
 
+	public int numberOfRock = 3;
 	public float shootForce = 300f;
 	bool shot = false;
 	bool hold = false;
@@ -27,8 +28,6 @@ public class Rock : MonoBehaviour {
 
 	void Start () {
 		center = transform.position;
-
-		Debug.Log (Vector2.ClampMagnitude (Vector2.one * 3f, 2f));
 	}
 
 	void FixedUpdate () {
@@ -77,6 +76,7 @@ public class Rock : MonoBehaviour {
 		Transform slingshot = GameObject.Find ("Slingshot").transform;
 		rigid.AddForce ((slingshot.position - transform.position) * shootForce);
 		rigid.gravityScale = 1;
+		numberOfRock --;
 	}
 
 	void OnCollisionEnter2D (Collision2D coll) {
@@ -94,6 +94,12 @@ public class Rock : MonoBehaviour {
 	}
 
 	void ResetRock () {
-		this.enabled = true;
+		if (numberOfRock == 0) {
+			GetComponent<SpriteRenderer> ().enabled = false;
+			GetComponent<CircleCollider2D> ().enabled = false;
+		}
+		else {
+			this.enabled = true;
+		}
 	}
 }
